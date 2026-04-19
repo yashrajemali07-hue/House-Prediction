@@ -248,8 +248,8 @@ model = load_model()
 
 
 # ─── Helpers ──────────────────────────────────────────────────────────────────
-LOCATION_MAP = {"Low": 0, "Medium": 0.5, "Premium": 1}
-INCOME_MAP   = {"Low": 0, "Medium": 0.5, "High": 1}
+LOCATION_MAP = {"Low": 0, "Medium": 1, "Premium": 2}
+INCOME_MAP   = {"Low": 0, "Medium": 1, "High": 2}
 
 def tier_label(price):
     if price >= 8_000_000:
