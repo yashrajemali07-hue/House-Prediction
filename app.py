@@ -25,7 +25,6 @@ st.markdown("""
     --muted:     #8a7b6e;
     --sage:      #6b8c72;
 
-    /* Sidebar dark tokens */
     --sb-bg:      #1a1510;
     --sb-surface: #24201a;
     --sb-border:  #38302a;
@@ -34,49 +33,33 @@ st.markdown("""
     --sb-accent:  #c8785a;
   }
 
-  html, body, [class*="css"] {
+  /* ── Global — DO NOT use [class*="css"] here, it breaks the sidebar toggle ── */
+  html, body {
     font-family: 'DM Sans', sans-serif;
     background-color: var(--paper) !important;
     color: var(--ink);
+  }
+  .main {
+    background-color: var(--paper) !important;
+    font-family: 'DM Sans', sans-serif;
   }
 
   #MainMenu, footer, header { visibility: hidden; }
   .block-container { padding: 0 2rem 3rem !important; max-width: 1280px !important; }
 
-  /* ──────────────────────────────────────
-     SIDEBAR TOGGLE — always visible
-  ────────────────────────────────────── */
-  /* The collapse/expand button Streamlit renders */
-  [data-testid="collapsedControl"],
-  button[kind="header"],
-  [data-testid="stSidebarCollapsedControl"] {
-    background: var(--clay) !important;
+  /* ── Sidebar toggle button — always visible ── */
+  [data-testid="collapsedControl"] {
+    background-color: var(--clay) !important;
     border-radius: 0 8px 8px 0 !important;
-    color: #fff !important;
     visibility: visible !important;
-    opacity: 1 !important;
     display: flex !important;
+    opacity: 1 !important;
   }
-  [data-testid="collapsedControl"] svg,
-  [data-testid="stSidebarCollapsedControl"] svg {
+  [data-testid="collapsedControl"] svg {
     fill: #fff !important;
-    color: #fff !important;
-  }
-  /* The chevron arrow button inside the open sidebar */
-  [data-testid="stSidebar"] [data-testid="stBaseButton-header"],
-  [data-testid="stSidebar"] button[kind="header"] {
-    background: var(--sb-surface) !important;
-    border: 1px solid var(--sb-border) !important;
-    color: var(--sb-text) !important;
-    border-radius: 8px !important;
-  }
-  [data-testid="stSidebar"] button[kind="header"] svg {
-    fill: var(--sb-text) !important;
   }
 
-  /* ──────────────────────────────────────
-     DARK SIDEBAR
-  ────────────────────────────────────── */
+  /* ── Dark Sidebar ── */
   [data-testid="stSidebar"] {
     background-color: var(--sb-bg) !important;
     border-right: 1px solid var(--sb-border) !important;
@@ -85,15 +68,32 @@ st.markdown("""
     padding: 1.6rem 1.1rem !important;
   }
 
-  /* All text inside sidebar */
+  /* Sidebar text */
   [data-testid="stSidebar"] p,
   [data-testid="stSidebar"] span,
   [data-testid="stSidebar"] div,
   [data-testid="stSidebar"] label {
     color: var(--sb-text) !important;
+    font-family: 'DM Sans', sans-serif;
   }
 
-  /* Section card */
+  /* Sidebar collapse chevron (inside open sidebar) */
+  [data-testid="stSidebar"] button[kind="header"] {
+    background: var(--sb-surface) !important;
+    border: 1px solid var(--sb-border) !important;
+    border-radius: 8px !important;
+  }
+  [data-testid="stSidebar"] button[kind="header"] svg {
+    fill: var(--sb-text) !important;
+  }
+
+  /* Sidebar HR */
+  [data-testid="stSidebar"] hr {
+    border-color: var(--sb-border) !important;
+    margin: 0.8rem 0 1rem !important;
+  }
+
+  /* Section cards */
   .sb-section {
     background: var(--sb-surface);
     border: 1px solid var(--sb-border);
@@ -110,7 +110,7 @@ st.markdown("""
     margin-bottom: 1rem;
   }
 
-  /* Number inputs in sidebar */
+  /* Number inputs */
   [data-testid="stSidebar"] input[type="number"] {
     background: var(--sb-bg) !important;
     color: var(--sb-text) !important;
@@ -129,7 +129,7 @@ st.markdown("""
     font-size: 0.82rem !important;
   }
 
-  /* Selectbox in sidebar */
+  /* Selectbox */
   [data-testid="stSidebar"] [data-baseweb="select"] > div:first-child {
     background: var(--sb-bg) !important;
     border-color: var(--sb-border) !important;
@@ -140,18 +140,12 @@ st.markdown("""
     fill: var(--sb-label) !important;
   }
 
-  /* Stepper +/- buttons */
+  /* Stepper buttons */
   [data-testid="stSidebar"] button[data-testid="stNumberInput-StepUp"],
   [data-testid="stSidebar"] button[data-testid="stNumberInput-StepDown"] {
     background: var(--sb-surface) !important;
     border-color: var(--sb-border) !important;
     color: var(--sb-text) !important;
-  }
-
-  /* Sidebar HR */
-  [data-testid="stSidebar"] hr {
-    border-color: var(--sb-border) !important;
-    margin: 0.8rem 0 1rem !important;
   }
 
   /* ── Predict button ── */
@@ -199,7 +193,10 @@ st.markdown("""
     color: #fff; line-height: 1.1; margin: 0 0 1rem;
   }
   .hero-title em { color: var(--clay); font-style: italic; }
-  .hero-sub { color: #c2b5ab; font-size: 0.96rem; font-weight: 300; max-width: 440px; line-height: 1.6; }
+  .hero-sub {
+    color: #c2b5ab; font-size: 0.96rem;
+    font-weight: 300; max-width: 440px; line-height: 1.6;
+  }
   .hero-badge {
     display: inline-block; background: #ffffff10; border: 1px solid #ffffff20;
     border-radius: 100px; padding: 0.28rem 0.85rem; font-size: 0.74rem;
@@ -311,19 +308,17 @@ with st.sidebar:
     )
     st.markdown("<hr>", unsafe_allow_html=True)
 
-    # Property Details
     st.markdown(
         '<div class="sb-section">'
         '<div class="sb-section-title">Property Details</div>',
         unsafe_allow_html=True,
     )
-    area      = st.number_input("Area (sq ft)",  min_value=100,  max_value=10000, value=1500, step=50)
-    bedrooms  = st.number_input("Bedrooms",       min_value=1,    max_value=10,    value=3,    step=1)
-    bathrooms = st.number_input("Bathrooms",      min_value=1,    max_value=10,    value=2,    step=1)
-    floors    = st.number_input("Floors",         min_value=1,    max_value=5,     value=1,    step=1)
+    area      = st.number_input("Area (sq ft)", min_value=100,  max_value=10000, value=1500, step=50)
+    bedrooms  = st.number_input("Bedrooms",      min_value=1,    max_value=10,    value=3,    step=1)
+    bathrooms = st.number_input("Bathrooms",     min_value=1,    max_value=10,    value=2,    step=1)
+    floors    = st.number_input("Floors",        min_value=1,    max_value=5,     value=1,    step=1)
     st.markdown('</div>', unsafe_allow_html=True)
 
-    # Location & Economics
     st.markdown(
         '<div class="sb-section">'
         '<div class="sb-section-title">Location & Economics</div>',
@@ -337,7 +332,6 @@ with st.sidebar:
 
 
 # ─── MAIN AREA ────────────────────────────────────────────────────────────────
-
 st.markdown("""
 <div class="hero">
   <div class="hero-eyebrow">AI Property Valuation</div>
@@ -360,10 +354,10 @@ with col_result:
 
         if model is None:
             price = (
-                area      * 4200
-                + bedrooms  * 180_000
-                + bathrooms * 90_000
-                + floors    * 120_000
+                area            * 4200
+                + bedrooms      * 180_000
+                + bathrooms     * 90_000
+                + floors        * 120_000
                 + location_val     * 600_000
                 + income_level_val * 300_000
             )
@@ -405,7 +399,8 @@ with col_result:
     else:
         st.markdown("""
         <div class="placeholder">
-          <p>Configure your property in the sidebar<br>and click <strong>Predict Price</strong> to get an estimate.</p>
+          <p>Configure your property in the sidebar<br>
+          and click <strong>Predict Price</strong> to get an estimate.</p>
         </div>
         """, unsafe_allow_html=True)
 
