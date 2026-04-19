@@ -273,7 +273,7 @@ def fmt_inr(n):
 with st.sidebar:
     st.markdown(
         "<div style='font-family:DM Serif Display,serif;font-size:1.35rem;"
-        "color:#e8ddd4;margin-bottom:0.2rem'>NestValue</div>"
+        "color:#ffffff;margin-bottom:0.2rem'>NestValue</div>"
         "<div style='font-size:0.75rem;color:#9a8d82;margin-bottom:1rem'>"
         "AI-powered property valuation</div>",
         unsafe_allow_html=True,
