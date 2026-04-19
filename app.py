@@ -44,6 +44,37 @@ st.markdown("""
   .block-container { padding: 0 2rem 3rem !important; max-width: 1280px !important; }
 
   /* ──────────────────────────────────────
+     SIDEBAR TOGGLE — always visible
+  ────────────────────────────────────── */
+  /* The collapse/expand button Streamlit renders */
+  [data-testid="collapsedControl"],
+  button[kind="header"],
+  [data-testid="stSidebarCollapsedControl"] {
+    background: var(--clay) !important;
+    border-radius: 0 8px 8px 0 !important;
+    color: #fff !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: flex !important;
+  }
+  [data-testid="collapsedControl"] svg,
+  [data-testid="stSidebarCollapsedControl"] svg {
+    fill: #fff !important;
+    color: #fff !important;
+  }
+  /* The chevron arrow button inside the open sidebar */
+  [data-testid="stSidebar"] [data-testid="stBaseButton-header"],
+  [data-testid="stSidebar"] button[kind="header"] {
+    background: var(--sb-surface) !important;
+    border: 1px solid var(--sb-border) !important;
+    color: var(--sb-text) !important;
+    border-radius: 8px !important;
+  }
+  [data-testid="stSidebar"] button[kind="header"] svg {
+    fill: var(--sb-text) !important;
+  }
+
+  /* ──────────────────────────────────────
      DARK SIDEBAR
   ────────────────────────────────────── */
   [data-testid="stSidebar"] {
@@ -248,8 +279,8 @@ model = load_model()
 
 
 # ─── Helpers ──────────────────────────────────────────────────────────────────
-LOCATION_MAP = {"Low": 0, "Medium": 1, "Premium": 2}
-INCOME_MAP   = {"Low": 0, "Medium": 1, "High": 2}
+LOCATION_MAP = {"Low": 0, "Medium": 0.5, "Premium": 1}
+INCOME_MAP   = {"Low": 0, "Medium": 0.5, "High": 1}
 
 def tier_label(price):
     if price >= 8_000_000:
@@ -273,7 +304,7 @@ def fmt_inr(n):
 with st.sidebar:
     st.markdown(
         "<div style='font-family:DM Serif Display,serif;font-size:1.35rem;"
-        "color:#ffffff;margin-bottom:0.2rem'>NestValue</div>"
+        "color:#e8ddd4;margin-bottom:0.2rem'>NestValue</div>"
         "<div style='font-size:0.75rem;color:#9a8d82;margin-bottom:1rem'>"
         "AI-powered property valuation</div>",
         unsafe_allow_html=True,
